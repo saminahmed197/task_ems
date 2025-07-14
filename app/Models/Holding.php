@@ -9,7 +9,7 @@ use App\Models\User;
 class Holding extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'company_name', 'stock_symbol', 'quantity', 'buy_price', 'purchase_date'];
+    protected $fillable = ['user_id', 'company_name', 'stock_symbol', 'quantity', 'buy_price', 'sector', 'purchase_date', 'current_price'];
 
     
     public function clients(){
@@ -21,7 +21,7 @@ class Holding extends Model
     // }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'client_holding_user')->withTimestamps()->wherePivot('is_active', 'Y');
+        return $this->belongsToMany(User::class, 'client_holding_user', 'holding_id', 'user_id')->withTimestamps()->wherePivot('is_active', 'Y');
     }
 
 }

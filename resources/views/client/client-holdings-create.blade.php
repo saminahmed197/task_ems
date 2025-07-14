@@ -57,6 +57,23 @@
                         <label class="form-label">Purchase Date</label>
                         <input type="date" class="form-control" name="purchase_date" required>
                     </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="sector" class="form-label">Select Sector</label>
+                        <select name="sector" id="sector" class="form-control">
+                            <option value="">-- All Sectors --</option>
+                            <option value="TECHNOLOGY">Technology</option>
+                            <option value="HEALTHCARE">Healthcare</option>
+                            <option value="FINANCIALS">Financials</option>
+                            <option value="ENERGY">Energy</option>
+                            <option value="CONSUMER DISCRETIONARY">Consumer Discretionary</option>
+                            <option value="CONSUMER STAPLES">Consumer Staples</option>
+                            <option value="INDUSTRIALS">Industrials</option>
+                            <option value="UTILITIES">Utilities</option>
+                            <option value="REAL ESTATE">Real Estate</option>
+                            <option value="COMMUNICATION">Communication</option>
+                            <option value="MATERIALS">Materials</option>
+                        </select>
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">Add More Clients to this Holding</label>

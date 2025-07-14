@@ -112,6 +112,7 @@
               {{ $roleTitle }}
         </a></h1>
               <ul class="list-unstyled components mb-5">
+        @if(auth()->check() && auth()->user()->is_admin == 1)
           <li class="active">
             <a href="/admin/clientlist"><span class="fa fa-book mr-3"></span> Client List</a>
           </li>
@@ -120,20 +121,24 @@
           </li>
 
           <li class="active">
-            <a href="/admin/client/holdings/create"><span class="fa fa-tasks mr-3"></span> Create Holdings</a>
+            <a href="/admin/client/holdings/create"><span class="fa fa-plus-square mr-3"></span> Create Holdings</a>
           </li>
           
           <li class="active">
-            <a href="/admin/upload-holdings"><span class="fa fa-book mr-3"></span> Bulk Stock</a>
+            <a href="/admin/upload-holdings"><span class="fa fa-upload mr-3"></span> Bulk Stock</a>
           </li>
 
           <li class="active">
-            <a href="/admin/exam"><span class="fa fa-tasks mr-3"></span> Exam</a>
+            <a href="/reports/equity-summary"><span class="fa fa-plus-square mr-3"></span> Equity Report</a>
           </li>
+        @endif
+        
+            <li class="active">
+                <a href="/default/stock/dashboard"><span class="fa fa-question-circle mr-3"></span> All Stack</a>
+            </li>
+        
 
-          <li class="active">
-            <a href="/admin/qna-ans"><span class="fa fa-question-circle mr-3"></span> Q & A</a>
-          </li>
+          
 
           <li>
             <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Log Out</a>

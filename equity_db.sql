@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2025 at 08:09 PM
+-- Generation Time: Jul 14, 2025 at 11:57 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,55 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `equity_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `answers`
---
-
-CREATE TABLE `answers` (
-  `id` int(11) NOT NULL,
-  `questions_id` int(11) NOT NULL,
-  `answer` varchar(500) NOT NULL,
-  `is_correct` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `answers`
---
-
-INSERT INTO `answers` (`id`, `questions_id`, `answer`, `is_correct`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Second answer', 0, '2023-10-24 12:21:24', '2024-06-01 11:55:22'),
-(4, 2, 'First ans', 0, '2023-11-02 16:25:29', '2023-11-02 16:25:29'),
-(5, 2, 'Second ans', 1, '2023-11-02 16:25:29', '2023-11-02 16:25:29'),
-(6, 2, 'Third ans', 0, '2023-11-02 16:25:29', '2023-11-02 16:25:29'),
-(109, 51, '111', 0, '2023-11-04 18:15:25', '2023-11-04 18:15:25'),
-(110, 51, '12', 1, '2023-11-04 18:15:25', '2023-11-04 18:15:25'),
-(111, 51, '13', 0, '2023-11-04 18:15:25', '2023-11-04 18:15:25'),
-(112, 52, 'cbl', 0, '2023-11-10 14:04:13', '2023-11-10 14:04:13'),
-(113, 52, 'citytouch', 1, '2023-11-10 14:04:13', '2023-11-10 14:04:13'),
-(114, 52, 'farmer', 0, '2023-11-10 14:04:13', '2023-11-10 14:04:13'),
-(115, 53, 'No', 0, '2023-11-10 15:13:20', '2023-11-10 15:13:20'),
-(116, 53, 'Yes', 1, '2023-11-10 15:13:20', '2023-11-10 15:13:20'),
-(127, 1, 'new 1', 1, '2024-06-01 17:52:04', '2024-06-01 11:55:22'),
-(173, 64, 'list tag', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(174, 64, 'nl tag', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(175, 64, 'ul tag', 1, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(176, 64, 'ol tag', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(177, 65, 'SRC', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(178, 65, 'LINK', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(179, 65, 'CELLPADDING', 1, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(180, 65, 'BOLD', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(181, 65, 'None', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(182, 65, 'IMG', 0, '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(183, 66, 'Ending tag', 0, '2024-06-08 16:42:21', '2024-06-08 10:43:33'),
-(184, 66, 'Starting tag', 1, '2024-06-08 16:42:21', '2024-06-08 10:43:33'),
-(185, 66, 'Closed tag', 0, '2024-06-08 16:42:21', '2024-06-08 10:43:33'),
-(186, 66, 'Pair tags', 0, '2024-06-08 16:42:21', '2024-06-08 10:43:33'),
-(187, 66, 'Table tag', 0, '2024-06-08 16:42:21', '2024-06-08 10:43:33');
 
 -- --------------------------------------------------------
 
@@ -92,36 +43,11 @@ CREATE TABLE `client_holding_user` (
 
 INSERT INTO `client_holding_user` (`id`, `holding_id`, `user_id`, `created_at`, `updated_at`, `is_active`, `is_delete`) VALUES
 (1, 1, 5, '2025-07-13 10:45:32', '2025-07-13 10:45:32', 'Y', 'N'),
-(2, 2, 4, '2025-07-13 10:46:16', '2025-07-13 10:46:16', 'Y', 'N'),
-(3, 2, 5, '2025-07-13 10:46:16', '2025-07-13 10:46:16', 'Y', 'N');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `exams`
---
-
-CREATE TABLE `exams` (
-  `id` int(11) NOT NULL,
-  `exam_name` varchar(255) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  `attempt` int(11) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `exams`
---
-
-INSERT INTO `exams` (`id`, `exam_name`, `subject_id`, `date`, `time`, `attempt`, `created_at`, `updated_at`) VALUES
-(1, 'Half Yearly', 1, '2024-06-08', '11:44', 1, '2023-10-18 17:44:42', '2024-06-01 10:54:21'),
-(2, 'First Class Test', 1, '2023-10-20', '11:00', 0, '2023-10-18 17:54:54', '2023-10-18 17:54:54'),
-(4, 'Half Yearly', 2, '2023-11-11', '10:00', 0, '2023-10-19 15:39:40', '2023-10-19 15:39:40'),
-(5, 'First Class Test', 4, '2023-11-10', '16:01', 2, '2023-10-24 10:01:26', '2023-10-24 04:07:13'),
-(6, 'Test', 2, '2023-11-25', '15:05', 3, '2023-11-03 21:02:49', '2023-11-03 21:02:49');
+(2, 2, 4, '2025-07-13 10:46:16', '2025-07-13 13:15:15', 'Y', 'N'),
+(3, 2, 5, '2025-07-13 10:46:16', '2025-07-13 13:15:15', 'Y', 'N'),
+(4, 10, 5, NULL, '2025-07-13 23:23:50', 'Y', 'N'),
+(5, 14, 4, '2025-07-14 02:12:46', '2025-07-14 02:27:53', 'Y', 'N'),
+(6, 14, 5, '2025-07-14 02:12:46', '2025-07-14 02:27:53', 'Y', 'N');
 
 -- --------------------------------------------------------
 
@@ -152,18 +78,34 @@ CREATE TABLE `holdings` (
   `stock_symbol` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `buy_price` decimal(20,2) NOT NULL,
-  `purchase_date` date NOT NULL,
+  `purchase_date` date NOT NULL DEFAULT current_timestamp(),
+  `sector` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(10) DEFAULT NULL,
+  `is_active` varchar(5) NOT NULL DEFAULT 'Y',
+  `is_delete` varchar(5) NOT NULL DEFAULT 'N',
+  `current_price` decimal(20,2) DEFAULT NULL,
+  `last_price_updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `holdings`
 --
 
-INSERT INTO `holdings` (`id`, `company_name`, `user_id`, `stock_symbol`, `quantity`, `buy_price`, `purchase_date`, `created_at`, `updated_at`) VALUES
-(1, 'APPLE', 5, 'APL', 20, 5000000000.00, '2025-07-13', '2025-07-13 10:45:32', '2025-07-13 10:45:32'),
-(2, 'AMAZON', 4, 'AMZ', 2, 10000.00, '2025-07-01', '2025-07-13 10:46:16', '2025-07-13 10:46:16');
+INSERT INTO `holdings` (`id`, `company_name`, `user_id`, `stock_symbol`, `quantity`, `buy_price`, `purchase_date`, `sector`, `created_at`, `updated_at`, `updated_by`, `is_active`, `is_delete`, `current_price`, `last_price_updated_at`) VALUES
+(1, 'APPLE', 5, 'AAPL', 20, 5000000000.00, '2025-07-13', 'TECHNOLOGY', '2025-07-13 10:45:32', '2025-07-14 01:47:11', NULL, 'Y', 'N', 5000.45, '2025-07-14 02:27:53'),
+(2, 'AMAZON', 4, 'AMZ', 3, 100009.00, '2025-07-01', NULL, '2025-07-13 10:46:16', '2025-07-13 13:21:37', '2', 'Y', 'N', NULL, '2025-07-14 02:27:53'),
+(4, 'APPLE INC.', 0, 'AAPL', 30, 600150.00, '2025-07-14', NULL, '2025-07-13 15:05:56', '2025-07-14 02:04:03', '2', 'Y', 'N', 5000.45, '2025-07-14 02:27:53'),
+(5, 'TESLA MOTORS', 0, 'TSLA', 5, 700.00, '2025-07-14', NULL, '2025-07-13 15:05:56', '2025-07-14 01:47:11', NULL, 'Y', 'N', 720.30, '2025-07-14 02:27:53'),
+(6, 'AMAZON.COM', 0, 'AMZN', 8, 125.00, '2025-07-14', NULL, '2025-07-13 15:05:56', '2025-07-14 01:47:11', NULL, 'Y', 'N', 130.20, '2025-07-14 02:27:53'),
+(8, 'TESLA MOTORS', 0, 'TSLA', 5, 700.00, '2025-07-14', NULL, '2025-07-13 15:13:21', '2025-07-14 01:47:11', NULL, 'Y', 'N', 720.30, '2025-07-14 02:27:53'),
+(9, 'AMAZON.COM', 0, 'AMZN', 8, 125.00, '2025-07-14', NULL, '2025-07-13 15:13:21', '2025-07-14 01:47:11', NULL, 'Y', 'N', 130.20, '2025-07-14 02:27:53'),
+(10, 'APPLE INC.', 0, 'AAPL', 5, 150000.00, '2025-07-14', NULL, '2025-07-13 15:23:18', '2025-07-14 01:47:11', NULL, 'Y', 'N', 5000.45, '2025-07-14 02:27:53'),
+(11, 'TESLA MOTORS', 0, 'TSLA', 6, 700000.00, '2025-07-14', NULL, '2025-07-13 15:23:18', '2025-07-14 01:47:11', NULL, 'Y', 'N', 720.30, '2025-07-14 02:27:53'),
+(12, 'AMAZON.COM', 0, 'AMZN', 7, 125000.00, '2025-07-14', NULL, '2025-07-13 15:23:18', '2025-07-14 01:47:11', NULL, 'Y', 'N', 130.20, '2025-07-14 02:27:53'),
+(13, 'DESCO', 0, 'DSC', 40, 3000.00, '2025-07-14', 'ENERGY', '2025-07-14 02:04:03', '2025-07-14 02:04:03', NULL, 'Y', 'N', NULL, '2025-07-14 02:27:53'),
+(14, 'Desco power supply', 4, 'DSC', 5, 40.00, '2025-07-13', 'ENERGY', '2025-07-15 02:12:46', '2025-07-14 02:27:53', NULL, 'Y', 'N', NULL, '2025-07-14 02:27:53');
 
 -- --------------------------------------------------------
 
@@ -219,6 +161,13 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('samin.ahmed@northsouth.edu', 'kl26zvrrWbQru5qXkZ6g4sTp8xnDbKUE77BDqcz8', '2025-07-14 01:31:49');
+
 -- --------------------------------------------------------
 
 --
@@ -237,55 +186,6 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `questions`
---
-
-CREATE TABLE `questions` (
-  `id` int(11) NOT NULL,
-  `question` varchar(500) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `questions`
---
-
-INSERT INTO `questions` (`id`, `question`, `created_at`, `updated_at`) VALUES
-(1, 'First Question changed?', '2023-10-24 12:21:24', '2024-06-01 11:55:22'),
-(2, 'Second question?', '2023-11-02 16:25:29', '2023-11-02 16:25:29'),
-(51, 'ok', '2023-11-04 18:15:25', '2023-11-04 18:15:25'),
-(52, 'city bank app', '2023-11-10 14:04:13', '2023-11-10 14:04:13'),
-(53, 'Remove button working?', '2023-11-10 15:13:20', '2023-11-10 15:13:20'),
-(64, 'How can you make a bulleted list?', '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(65, 'Which of the following is an attribute of <Table> tag?', '2024-06-08 16:42:21', '2024-06-08 16:42:21'),
-(66, 'Opening tag of HTML is called', '2024-06-08 16:42:21', '2024-06-08 10:43:33');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subjects`
---
-
-CREATE TABLE `subjects` (
-  `id` int(11) NOT NULL,
-  `subject` varchar(256) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `subjects`
---
-
-INSERT INTO `subjects` (`id`, `subject`, `created_at`, `updated_at`) VALUES
-(1, 'English', '2023-09-08 19:49:17', '2023-10-01 10:26:23'),
-(2, 'Math', '2023-10-01 17:04:11', '2023-10-01 17:04:11'),
-(4, 'Physics', '2023-10-01 17:04:40', '2023-10-01 17:04:40');
 
 -- --------------------------------------------------------
 
@@ -316,8 +216,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `is_admin`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `request_role`, `request_decision`, `request_decision_by`, `is_active`, `is_delete`) VALUES
-(1, 'sam', 'manager@gmail.com', '', 0, NULL, '$2y$10$34BctJy4VQh0qlzskHK3VOQ9RfFapBhlmp0cqGV6m6qiRhDEWPwz6', NULL, '2023-08-05 05:32:56', '2023-10-18 10:59:16', 0, 'YES', '', 'Y', 'N'),
-(2, 'admin', 'a@gmail.com', '', 1, NULL, '$2y$10$NRaMjONnWs2Yl4u0MkZGKuOPUx0zyh1NCSSHL4TtzynbhNTD.8sSy', NULL, '2023-08-05 05:38:28', '2023-08-05 05:38:28', 1, 'YES', '', 'Y', 'N'),
+(0, 'sample', 'manager@gmail.com', '', 4, NULL, '$2y$10$2yW0Yafa3KytC/c4z2xGD.ca5QISOoZPlcuds9ib0n3zAmrrX7whW', NULL, '2023-08-05 05:32:56', '2025-07-13 12:50:01', 3, 'YES', '', 'Y', 'N'),
+(1, 'sam', 'sample@gmail.com', '', 0, NULL, '$2y$10$2yW0Yafa3KytC/c4z2xGD.ca5QISOoZPlcuds9ib0n3zAmrrX7whW', NULL, '2023-08-05 05:32:56', '2025-07-13 12:50:01', 0, 'YES', '', 'Y', 'N'),
+(2, 'admin', 'samin.ahmed@northsouth.edu', '', 1, NULL, '$2y$10$NRaMjONnWs2Yl4u0MkZGKuOPUx0zyh1NCSSHL4TtzynbhNTD.8sSy', NULL, '2023-08-05 05:38:28', '2023-08-05 05:38:28', 1, 'YES', '', 'Y', 'N'),
 (3, 'Analyst', 'analyst@gmail.com', '', 2, NULL, '$2y$10$NRaMjONnWs2Yl4u0MkZGKuOPUx0zyh1NCSSHL4TtzynbhNTD.8sSy', NULL, '2023-08-05 05:38:28', '2023-08-05 05:38:28', 2, 'YES', '', 'Y', 'N'),
 (4, 'Client', 'client@gmail.com', '01631982235', 3, NULL, '$2y$10$r8dmRcymfHk9huvnzcppIOX4PVtCSdSylw6K9IMQnUNHhsO5aNpk2', NULL, '2025-07-13 03:48:28', '2025-07-13 10:45:42', 3, 'YES', '2', 'Y', 'N'),
 (5, 'Ekram', 'ek@gmail.com', '01631982235', 3, NULL, '$2y$10$QDETavXIEDWJW6yXvGruW.kR6INs1Io7ZzfLz69.SD28.TH9.2LbC', NULL, '2025-07-13 04:05:14', '2025-07-13 06:21:05', 3, 'YES', '2', 'Y', 'N');
@@ -327,24 +228,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `is_admin`, `email_verified
 --
 
 --
--- Indexes for table `answers`
---
-ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `client_holding_user`
 --
 ALTER TABLE `client_holding_user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `client_holding_user_holding_id_foreign` (`holding_id`),
   ADD KEY `client_holding_user_user_id_foreign` (`user_id`);
-
---
--- Indexes for table `exams`
---
-ALTER TABLE `exams`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -388,18 +277,6 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `questions`
---
-ALTER TABLE `questions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `subjects`
---
-ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -411,22 +288,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
-
---
 -- AUTO_INCREMENT for table `client_holding_user`
 --
 ALTER TABLE `client_holding_user`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `exams`
---
-ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -438,7 +303,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `holdings`
 --
 ALTER TABLE `holdings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -459,22 +324,10 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `questions`
---
-ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
-
---
--- AUTO_INCREMENT for table `subjects`
---
-ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

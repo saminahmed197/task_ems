@@ -5,12 +5,7 @@ namespace App\Http\Controllers;
 
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
-use App\Models\Subject;
-use App\Models\Exam;
-use App\Models\Question;
-use App\Models\Answer;
 use Illuminate\Support\Facades\Validator;
-use App\imports\QnaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use App\Jobs\BulkClientUpdateJob;

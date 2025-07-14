@@ -163,6 +163,7 @@ class AuthController extends Controller
                 $data['email'] = $request->email;
                 $data['title'] = 'Password Reset';
                 $data['body'] = 'Please click on below link to reset your password';
+                $data['link_text'] = 'Click here to reset password';
 
                 Mail::send('forgetPasswordMail',['data'=>$data],function($message) use ($data){
                     $message->from('samin23ahmed@gmail.com', 'Md. Samin Ahmed');

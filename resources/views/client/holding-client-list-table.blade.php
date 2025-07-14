@@ -4,6 +4,7 @@
             <div>
                 <strong>{{ $holding->company_name }} ({{ $holding->stock_symbol }})</strong><br>
                 Quantity: {{ $holding->quantity }} | Buy Price: {{ $holding->buy_price }} | Purchased: {{ $holding->purchase_date }}
+                | Current Price: {{ $holding->current_price }}
             </div>
         </div>
         <div class="card-body">
@@ -24,9 +25,6 @@
             </form>
         </div>
     </div>
-
-@endforeach
-
 <!-- Edit Modal -->
 <div class="modal fade" id="editHoldingModal{{ $holding->id }}" tabindex="-1" aria-labelledby="editLabel{{ $holding->id }}" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -59,6 +57,24 @@
                 <label class="form-label">Purchase Date</label>
                 <input type="date" name="purchase_date" class="form-control" value="{{ $holding->purchase_date }}" required>
             </div>
+            <div class="mb-3 col-md-6">
+                <label for="sector" class="form-label">Select Sector</label>
+                <select name="sector" id="sector" class="form-control">
+                    <option value="">-- ALL SECTORS --</option>
+                    <option value="TECHNOLOGY" <?php if($holding->sector == 'TECHNOLOGY') echo 'selected';?>>Technology</option>
+                    <option value="HEALTHCARE" <?php if($holding->sector == 'HEALTHCARE') echo 'selected';?>>Healthcare</option>
+                    <option value="FINANCIALS" <?php if($holding->sector == 'FINANCIALS') echo 'selected';?>>Financials</option> 
+                    <option value="ENERGY" <?php if($holding->sector == 'ENERGY') echo 'selected';?>>Energy</option>
+                    <option value="CONSUMER DISCRETIONARY" <?php if($holding->sector == 'CONSUMER DISCRETIONARY') echo 'selected';?>>Consumer Discretionary</option>
+                    <option value="CONSUMER STAPLES" <?php if($holding->sector == 'CONSUMER STAPLES') echo 'selected';?>>Consumer Staples</option>
+                    <option value="INDUSTRIALS" <?php if($holding->sector == 'INDUSTRIALS') echo 'selected';?>>Industrials</option>
+                    <option value="UTILITIES" <?php if($holding->sector == 'UTILITIES') echo 'selected';?>>Utilities</option>
+                    <option value="REAL ESTATE" <?php if($holding->sector == 'REAL ESTATE') echo 'selected';?>>Real Estate</option>
+                    <option value="COMMUNICATION" <?php if($holding->sector == 'COMMUNICATION') echo 'selected';?>>Communication</option>
+                    <option value="MATERIALS" <?php if($holding->sector == 'MATERIALS') echo 'selected';?>>Materials</option>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Select Clients</label>
                 <select class="form-select" name="user_ids[]" multiple required>
@@ -79,5 +95,8 @@
     </div>
   </div>
 </div>
+@endforeach
+
+
 
 {{ $holdings->links('pagination::bootstrap-5') }}

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HoldingController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +46,11 @@ Route::group(['middleware'=>['web','checkAdmin']],function(){
     Route::get('/admin/upload-holdings', [HoldingController::class, 'loadStockuploadform'])->name('admin.loadStockuploadform');
     Route::post('/admin/upload-stock-all', [HoldingController::class, 'uploadStocks'])->name('admin.uploadStocks');
 
+    // Report
+    Route::get('/reports/equity-summary', [HoldingController::class, 'equitySummary'])->name('reports.equity.summary');
+    Route::get('/reports/export/pdf', [HoldingController::class, 'exportPDF'])->name('reports.export.pdf');
+    Route::get('/reports/export/excel', [HoldingController::class, 'exportExcel'])->name('reports.export.excel');
+
 });
 
 Route::group(['middleware'=>['web','checkManager']],function(){
@@ -58,9 +65,15 @@ Route::group(['middleware'=>['web','checkClient']],function(){
     Route::get('/client/dashboard',[AuthController::class,'clientDashboard']);
 });
 
+Route::get('/default/stock/dashboard',[HoldingController::class,'allStoredStocks'])->name('stock.allStoredStocks');
+
 Route::get('/logout',[AuthController::class,'logout']);
 
 Route::get('/forget-password',[AuthController::class,'forgetPasswordLoad']);
 Route::post('/forget-password',[AuthController::class,'forgetPassword'])->name('forgetPassword');
 Route::get('/reset-password',[AuthController::class,'resetPasswordLoad']);
 Route::post('/reset-password',[AuthController::class,'resetPassword'])->name('resetPassword');
+
+
+// Route::get('/admin/store/stocks/dse', [HoldingController::class, 'getallStockdse']);
+// Route::get('/admin/store/stocks/dse/data', [HoldingController::class, 'stockPricescheduler']);
