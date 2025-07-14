@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -171,10 +172,17 @@ class AuthController extends Controller
                 });
 
                 $dateTime = Carbon::now()->format('Y-m-d H:i:s');
-                PasswordReset::updateOrCreate(
+                // PasswordReset::updateOrCreate(
+                //     ['email' => $request->email],
+                //     [
+                //         'email' => $request->email,
+                //         'token' => $token,
+                //         'created_at' => $dateTime
+                //     ]
+                // );
+                DB::table('password_reset_tokens')->updateOrInsert(
                     ['email' => $request->email],
                     [
-                        'email' => $request->email,
                         'token' => $token,
                         'created_at' => $dateTime
                     ]

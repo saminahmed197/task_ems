@@ -52,7 +52,7 @@ class HoldingController extends Controller
                         ->where('request_decision', 'YES')
                         ->where('is_active', 'Y')
                         ->where('is_delete', 'N')
-                        ->paginate(1);
+                        ->paginate(5);
         $all_clients = User::select('id', 'name', 'email', 'phone')
                         ->where('is_admin', 3)
                         ->where('request_decision', 'YES')
@@ -71,6 +71,7 @@ class HoldingController extends Controller
             'stock_symbol'   => $request->stock_symbol,
             'quantity'       => $request->quantity,
             'buy_price'      => $request->buy_price,
+            'store' => $request->store,
             'purchase_date'  => $request->purchase_date,
         ]);
        
@@ -80,19 +81,20 @@ class HoldingController extends Controller
         );
 
         $holding->clients()->sync($clientIds);
-
+        log_audit('CREATE', 'Holdings stored and assigned to client', 'Create Holdings');
         return redirect()->route('admin.clientholdings.list')->with('success', 'Holding added.');
     }
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        dd($request->all());
         $request->validate([
             'company_name' => 'required|string|max:255',
             'stock_symbol' => 'required|string|max:10',
             'quantity' => 'required|integer|min:1',
             'buy_price' => 'required|numeric|min:0',
             'purchase_date' => 'required|date',
+            'sector' => 'required',
             // 'user_ids' => 'required|array',
             // 'user_ids.*' => 'exists:users,id',
         ]);
@@ -122,7 +124,8 @@ class HoldingController extends Controller
                 ['is_active' => 'Y', 'updated_at' => now()]
             );
         }
-
+        
+        log_audit('UPDATE', 'Holdings updated and assigned to client', 'Client Holdings');
         return redirect()->route('admin.clientholdings.list')->with('success', 'Holding updated.');
     }
 
@@ -134,6 +137,7 @@ class HoldingController extends Controller
         $holding->updated_by = auth()->id();
         $holding->save();
         $holding->touch();
+        log_audit('DELETE', 'Holding deleted', 'Client Holdings');
         return redirect()->route('admin.clientholdings.list')->with('success', 'Holding deleted.');
     }
 
@@ -151,8 +155,10 @@ class HoldingController extends Controller
             $filename = 'stocks_' . date('Ymd_His') . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
             $filePath = $file->storeAs('public/uploads', $filename);
             Excel::import(new HoldingsImport, $file);
+            log_audit('UPLOAD', 'Stocks stored with bulk excel upload', 'Bulk Stock');
             return redirect()->route('admin.loadStockuploadform')->with('success', 'Stocks uploaded successfully.');
         } catch (\Exception $e) {
+            log_audit('UPLOAD Failed', 'Stocks stored failure with bulk excel upload', 'Bulk Stock');
             return redirect()->back()->with('error', 'Upload failed: ' . $e->getMessage());
         }
     }
@@ -194,7 +200,11 @@ class HoldingController extends Controller
             ->where('is_active', 'Y')
             ->where('is_delete', 'N')
             ->get();
+        $holdings = $this->getFilteredHoldings($request);
+        return view('client.equity-summary', compact('holdings', 'clients'));
+    }
 
+    private function getFilteredHoldings(Request $request){
         $query = Holding::with('users')->where('is_active', 'Y');
         //dd($request->sector);
         if ($request->filled('client_id') && $request->client_id !== 'all') {
@@ -208,32 +218,8 @@ class HoldingController extends Controller
         }
 
         if ($request->filled('from_date') && $request->filled('to_date')) {
-           $from = Carbon::parse($request->from_date)->startOfDay();
+            $from = Carbon::parse($request->from_date)->startOfDay();
             $to = Carbon::parse($request->to_date)->endOfDay();
-            $query->whereBetween('created_at', [$from, $to]);
-        }
-
-        $holdings = $query->get();
-        // dd($holdings);
-        return view('client.equity-summary', compact('holdings', 'clients'));
-    }
-
-    private function getFilteredHoldings(Request $request){
-        $query = Holding::with('users')->where('is_active', 'Y');
-
-        if ($request->filled('client_id') && $request->client_id !== 'all') {
-            $query->whereHas('users', function ($q) use ($request) {
-                $q->where('user_id', $request->client_id);
-            });
-        }
-
-        if ($request->filled('sector')) {
-            $query->where('sector', $request->sector);
-        }
-
-        if ($request->filled('from_date') && $request->filled('to_date')) {
-            $from = \Carbon\Carbon::parse($request->from_date)->startOfDay();
-            $to = \Carbon\Carbon::parse($request->to_date)->endOfDay();
             $query->whereBetween('created_at', [$from, $to]);
         }
 
@@ -242,16 +228,17 @@ class HoldingController extends Controller
 
     public function exportPDF(Request $request){
         $holdings = $this->getFilteredHoldings($request);
-        // dd($holdings);
+        //dd($holdings);
         $pdf = PDF::loadView('reports.equity-summary-pdf', compact('holdings'))
                 ->setPaper('a4', 'landscape');
-
+        log_audit('PDF DOWNLOAD', 'REPORT in PDF download', 'Equity Report');
         return $pdf->download('equity_summary.pdf');
     }
 
     public function exportExcel(Request $request)
     {
         $holdings = $this->getFilteredHoldings($request);
+        log_audit('EXCEL DOWNLOAD', 'REPORT in EXCEL download', 'Equity Report');
         return Excel::download(new EquitySummaryExport($holdings), 'equity_summary.xlsx');
     }
 

@@ -8190,6 +8190,28 @@ h1, h2, h3, h4, h5,
 
 .wrapper {
   width: 100%; }
+.card-header.custom-header {
+    background-color: #a3bcdc; 
+    /* color: white; */
+    font-weight: 500;
+}
+.live-search-input {
+    font-size: 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+}
+
+.live-search-input:focus {
+    border-color: #2f89fc;
+    box-shadow: 0 0 0 3px rgba(47, 137, 252, 0.2);
+    outline: none;
+}
 
 #sidebar {
   min-width: 250px;

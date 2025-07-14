@@ -15,9 +15,9 @@
                 @forelse($clients as $client)
                     <tr>
                         <td><input type="checkbox" name="client_ids[]" value="{{ $client->id }}"></td>
-                        <td>{{ $client->name }}</td>
-                        <td>{{ $client->email }}</td>
-                        <td>{{ $client->phone }}</td>
+                        <td><input type="text" name="names[{{ $client->id }}]" value={{ $client->name }} style="border: none; background: transparent; outline: none; width: 100%;"> </td>
+                        <td><input type="text" name="emails[{{ $client->id }}]" value={{ $client->email }} style="border: none; background: transparent; outline: none; width: 100%;"></td>
+                        <td><input type="text" name="phones[{{ $client->id }}]" value={{ $client->phone }} style="border: none; background: transparent; outline: none; width: 100%;"></td>
                         <td>
                             @if($client->request_decision === 'NO')
                                 <select name="role[{{ $client->id }}]" class="form-select">

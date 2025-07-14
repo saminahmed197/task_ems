@@ -19,7 +19,10 @@
           display: block;
           border-radius: 6px;
       }
-
+      #sidebar li a.active-link {
+          background-color: #1d5edc !important;
+          color: #fff !important;
+      }
       #sidebar li a:hover {
           background-color: #1d5edc;
       }
@@ -112,30 +115,56 @@
               {{ $roleTitle }}
         </a></h1>
               <ul class="list-unstyled components mb-5">
-        @if(auth()->check() && auth()->user()->is_admin == 1)
-          <li class="active">
-            <a href="/admin/clientlist"><span class="fa fa-book mr-3"></span> Client List</a>
-          </li>
-          <li class="active">
-            <a href="/admin/client/holdings"><span class="fa fa-tasks mr-3"></span> Client Holdings</a>
-          </li>
+                  {{-- Admin: Full Access --}}
+          @if(auth()->check() && auth()->user()->is_admin == 1)
+              <li class="active">
+                  <a href="/admin/clientlist" class="{{ request()->is('admin/clientlist') ? 'active-link' : '' }}">
+                      <span class="fa fa-book mr-3"></span> Client List
+                  </a>
+              </li>
+              <li class="active">
+                  <a href="/admin/client/holdings" class="{{ request()->is('admin/client/holdings') ? 'active-link' : '' }}">
+                      <span class="fa fa-tasks mr-3"></span> Client Holdings
+                  </a>
+              </li>
+          @endif
 
-          <li class="active">
-            <a href="/admin/client/holdings/create"><span class="fa fa-plus-square mr-3"></span> Create Holdings</a>
-          </li>
-          
-          <li class="active">
-            <a href="/admin/upload-holdings"><span class="fa fa-upload mr-3"></span> Bulk Stock</a>
-          </li>
+          {{-- Admin or Manager: Create Holdings --}}
+          @if(auth()->check() && in_array(auth()->user()->is_admin, [1, 0]))
+              <li class="active">
+                  <a href="/admin/client/holdings/create" class="{{ request()->is('admin/client/holdings/create') ? 'active-link' : '' }}">
+                      <span class="fa fa-plus-square mr-3"></span> Create Holdings
+                  </a>
+              </li>
+              <li class="active">
+                  <a href="/admin/upload-holdings" class="{{ request()->is('admin/upload-holdings') ? 'active-link' : '' }}">
+                      <span class="fa fa-upload mr-3"></span> Bulk Stock
+                  </a>
+              </li>
+          @endif
 
-          <li class="active">
-            <a href="/reports/equity-summary"><span class="fa fa-plus-square mr-3"></span> Equity Report</a>
-          </li>
-        @endif
+          {{-- Admin or Analyst: Equity Report --}}
+          @if(auth()->check() && in_array(auth()->user()->is_admin, [1, 2]))
+              <li class="active">
+                  <a href="/reports/equity-summary" class="{{ request()->is('reports/equity-summary') ? 'active-link' : '' }}">
+                      <span class="fa fa-table mr-3"></span> Equity Report
+                  </a>
+              </li>
+          @endif
+
         
             <li class="active">
-                <a href="/default/stock/dashboard"><span class="fa fa-question-circle mr-3"></span> All Stack</a>
+                <a href="/default/stock/dashboard" class="{{ request()->is('default/stock/dashboard') ? 'active-link' : '' }}"><span class="fa fa-balance-scale"></span> All Stock</a>
             </li>
+
+            @if(auth()->check() && auth()->user()->is_admin == 1)
+              <li class="active">
+                  <a href="/admin/audit-logs" class="{{ request()->is('admin/audit-logs') ? 'active-link' : '' }}">
+                      <span class="fa fa-history mr-3"></span> Audit Logs
+                  </a>
+              </li>
+              
+          @endif
         
 
           

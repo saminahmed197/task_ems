@@ -35,7 +35,11 @@ Route::group(['middleware'=>['web','checkAdmin']],function(){
     // Client Portfolio Management Route
     Route::get('/admin/clientlist',[AdminController::class,'clientlistDashboard'])->name('admin.clients.list');
     Route::post('/admin/clientlist/approve', [AdminController::class, 'approveSelectedClients'])->name('admin.clients.approve');
-    
+    Route::get('/admin/audit-logs', [AdminController::class, 'auditLog'])->name('audit.logs');
+
+});
+
+Route::group(['middleware' => ['web', 'checkAdminOrManager']], function (){
     // List of Holdings
     Route::get('/admin/client/holdings', [HoldingController::class,'index'])->name('admin.clientholdings.list');
     Route::get('/admin/client/holdings/create', [HoldingController::class,'create'])->name('admin.clientholdingscreate.list');
@@ -45,7 +49,9 @@ Route::group(['middleware'=>['web','checkAdmin']],function(){
 
     Route::get('/admin/upload-holdings', [HoldingController::class, 'loadStockuploadform'])->name('admin.loadStockuploadform');
     Route::post('/admin/upload-stock-all', [HoldingController::class, 'uploadStocks'])->name('admin.uploadStocks');
+});
 
+Route::group(['middleware' => ['web', 'CheckAdminOrAnalyst']], function (){
     // Report
     Route::get('/reports/equity-summary', [HoldingController::class, 'equitySummary'])->name('reports.equity.summary');
     Route::get('/reports/export/pdf', [HoldingController::class, 'exportPDF'])->name('reports.export.pdf');
@@ -59,6 +65,7 @@ Route::group(['middleware'=>['web','checkManager']],function(){
 
 Route::group(['middleware'=>['web','checkAnalyst']],function(){
     Route::get('/analyst/dashboard',[AuthController::class,'analystDashboard']);
+
 });
 
 Route::group(['middleware'=>['web','checkClient']],function(){

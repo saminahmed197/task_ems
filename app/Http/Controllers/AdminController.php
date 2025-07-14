@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
+use App\Models\AuditLog;
 use App\Jobs\BulkClientUpdateJob;
 
 class AdminController extends Controller
@@ -39,6 +40,9 @@ class AdminController extends Controller
         $clientIds = $request->input('client_ids', []);
         $roles = $request->input('role', []);
         $statuses = $request->input('status', []);
+        $names = $request->input('names', []);
+        $emails = $request->input('emails', []);
+        $phones = $request->input('phones', []);
         if (empty($clientIds)) {
             return back()->with('error', 'No user selected.');
         }
@@ -47,6 +51,9 @@ class AdminController extends Controller
             $user = User::find($id);
             if ($user) {
                 $user->request_decision = 'YES';
+                $user->name = $names[$id] ?? $user->name;
+                $user->email = $emails[$id] ?? $user->email;
+                $user->phone = $phones[$id] ?? $user->phone;
                 // $user->request_role = $roles[$id] ?? $user->request_role;
                 $user->is_admin = $roles[$id] ?? $user->is_admin;
                 $user->request_decision_by = auth()->user()->id;
@@ -55,13 +62,17 @@ class AdminController extends Controller
                 $user->save();
             }
         }
-
+        log_audit('CREATE', 'Bulk client activate/deactivate with role changed', 'Client List');
         // Dispatch the job to the queue for updating data
         // BulkClientUpdateJob::dispatch($clientIds, $roles, $statuses);   
 
         return back()->with('success', 'User list updated successfully.');
     }
 
+    public function auditLog(){
+        $logs = AuditLog::with('user')->latest()->paginate(20);
+        return view('admin.audit-logs', compact('logs'));
+    }
 
    
 }

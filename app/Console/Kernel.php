@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule){
-        $schedule->command('mail:send-greeting')->everyMinute();//dailyAt('07:00'); //everyMinute();
+        $schedule->command('mail:send-greeting')->dailyAt('07:00'); //everyMinute();
         $schedule->command('stocks:update-prices')->everyMinute();
     }
 

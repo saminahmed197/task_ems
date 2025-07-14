@@ -8,7 +8,7 @@
     @if(session('error')) <div class="alert alert-danger">{{ session('error') }}</div> @endif
     <div class="row mb-4">
         <div class="col-md-4">
-            <input type="text" id="liveSearchInput"  placeholder="Search name, email, phone...">
+            <input type="text" id="liveSearchInput" class="form-control live-search-input"  placeholder="Search name, email, phone...">
         </div>
     </div>
     <div id="userTable">

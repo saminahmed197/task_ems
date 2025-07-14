@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 use App\Models\User;
+use App\Mail\GreetingMail;
+
 class SendMail extends Command
 {
     /**
@@ -53,7 +55,6 @@ class SendMail extends Command
                 $message->from('samin23ahmed@gmail.com', 'Md. Samin Ahmed');
                 $message->to($data['email'])->subject($data['title']);
             });
-
             
         }
 
